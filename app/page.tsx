@@ -6,16 +6,16 @@ import { Input } from "@nextui-org/input";
 import { PiMagnifyingGlassLight } from "react-icons/pi";
 export default function Home() {
   return (
-    <div className="flex flex-col min-h-[90vh] h-full p-4 md:flex-row md:border">
+    <div className="flex h-full min-h-[90vh] flex-col p-4 md:flex-row md:border lg:px-20 xl:px-40">
       {/* Maps container */}
-      <div className="w-full h-80 order-1 mb-4 md:order-2 md:w-[100%] md:h-full overflow-auto">
+      <div className="order-1 mb-4 h-80 w-full overflow-auto md:order-2 md:h-full md:w-[100%]">
         <Maps />
       </div>
       {/* Sidebar container */}
-      <div className="flex flex-col items-center order-2 gap-4 md:order-1 md:w-[40%] md:mr-4">
+      <div className="order-2 flex flex-col items-center gap-4 md:order-1 md:mr-4 md:w-[40%]">
         <ProfileCard />
-        <div className="flex flex-col gap-2 w-full md:h-full">
-          <h1 className="text-zinc-400 text-large">Routes</h1>
+        <div className="flex w-full flex-col gap-2 md:h-full">
+          <h1 className="text-large text-zinc-400">Routes</h1>
           <Input
             startContent={<PiMagnifyingGlassLight size={20} />}
             placeholder="Search Routes"

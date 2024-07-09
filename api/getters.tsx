@@ -4,6 +4,7 @@ const BASE_URL = "https://api.commadotai.com/";
 const API_KEY = process.env.COMMA_KEY;
 export async function getAccount() {
   try {
+    console.log(API_KEY);
     const response = await axios.get(`${BASE_URL}v1/me/`, {
       headers: {
         Authorization: `JWT ${API_KEY}`,
@@ -17,6 +18,7 @@ export async function getAccount() {
 }
 export async function getDevice() {
   try {
+    console.log(API_KEY);
     const response = await axios.get(`${BASE_URL}v1/me/devices/`, {
       headers: {
         Authorization: `JWT ${API_KEY}`,

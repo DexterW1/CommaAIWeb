@@ -28,7 +28,7 @@ export default function ProfileCard() {
               <h2>Routes</h2>
               <h1>12</h1>
             </div>
-            <Button title="test" onClick={getAccount} />
+            <Button title="test" onClick={getDevice} />
           </div>
         </CardBody>
       </Card>

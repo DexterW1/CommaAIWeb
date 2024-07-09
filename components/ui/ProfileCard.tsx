@@ -1,7 +1,10 @@
+"use client";
 import React from "react";
 import { Card, CardBody, CardFooter, CardHeader } from "@nextui-org/card";
 import { Divider } from "@nextui-org/divider";
 import { Avatar } from "@nextui-org/avatar";
+import { Button } from "@nextui-org/button";
+import { getAccount, getDevice } from "@/api/getters";
 export default function ProfileCard() {
   return (
     <div className="w-full">
@@ -25,6 +28,7 @@ export default function ProfileCard() {
               <h2>Routes</h2>
               <h1>12</h1>
             </div>
+            <Button title="test" onClick={getAccount} />
           </div>
         </CardBody>
       </Card>

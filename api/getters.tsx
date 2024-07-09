@@ -4,7 +4,7 @@ const BASE_URL = "https://api.commadotai.com/";
 const API_KEY = process.env.COMMA_KEY;
 export async function getAccount() {
   try {
-    const response = await axios.get(`${BASE_URL}v1/me`, {
+    const response = await axios.get(`${BASE_URL}v1/me/`, {
       headers: {
         Authorization: `JWT ${API_KEY}`,
         "Content-Type": "application/json",

@@ -1,32 +1,60 @@
 import { create } from "zustand";
+import {
+  getAccount,
+  getDevice,
+  getDeviceStats,
+  getSegments,
+} from "@/api/getters";
 type DeviceStore = {
+  device: object;
+  stats: object;
+  profile: object;
+  segments: object;
   dongleID: string;
-  deviceName: string;
-  user: {
-    email: string;
-    id: string;
-    prime: boolean;
-    regdate: number;
-    superuser: boolean;
-    user_id: string;
-    username?: string;
-  };
-  setDeviceName: (deviceName: string) => void;
+  deviceLoading: boolean;
+  setStats: (stats: object) => void;
   setDongleID: (dongleID: string) => void;
-  setUser: (user: any) => void;
+  setDevice: (device: object) => void;
+  setProfile: (profile: object) => void;
+  setSegments: (segments: object) => void;
+  fetchDeviceData: () => void;
+  fetchSegments: () => void;
+  fetchProfile: () => void;
+  fetchAllData: () => void;
 };
-export const useDeviceStore = create<DeviceStore>((set) => ({
+export const useDeviceStore = create<DeviceStore>((set, get) => ({
   dongleID: "",
-  deviceName: "",
-  user: {
-    email: "",
-    id: "",
-    prime: false,
-    regdate: 0,
-    superuser: false,
-    user_id: "",
-  },
+  device: {},
+  segments: {},
+  profile: {},
+  stats: {},
+  deviceLoading: true,
+  setStats: (stats: object) => set({ stats }),
   setDongleID: (dongleID: string) => set({ dongleID }),
-  setDeviceName: (deviceName: string) => set({ deviceName }),
-  setUser: (user: object) => set({ user }),
+  setDevice: (device: object) => set({ device }),
+  setProfile: (profile: object) => set({ profile }),
+  setSegments: (segments: object) => set({ segments }),
+  fetchDeviceData: async () => {
+    const dataDevice = await getDevice();
+    set({ device: dataDevice[0] });
+    set({ dongleID: dataDevice[0].dongle_id });
+  },
+  fetchProfile: async () => {
+    const dongleID = get().dongleID;
+    const dataProfile = await getAccount();
+    const dataStats = await getDeviceStats(dongleID);
+    set({ stats: dataStats });
+    set({ profile: dataProfile });
+  },
+  fetchSegments: async () => {
+    const dongleID = get().dongleID;
+    const limit = 3;
+    set({ segments: getSegments(dongleID, limit) });
+  },
+  fetchAllData: async () => {
+    await get().fetchDeviceData();
+    await get().fetchProfile();
+    await get().fetchSegments();
+    set({ deviceLoading: false });
+  },
 }));

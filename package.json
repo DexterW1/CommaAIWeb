@@ -21,6 +21,7 @@
     "@nextui-org/link": "2.0.32",
     "@nextui-org/listbox": "2.1.22",
     "@nextui-org/navbar": "2.0.33",
+    "@nextui-org/popover": "^2.1.24",
     "@nextui-org/snippet": "2.0.38",
     "@nextui-org/switch": "2.0.31",
     "@nextui-org/system": "2.2.1",
@@ -38,6 +39,7 @@
     "react": "18.3.1",
     "react-dom": "18.3.1",
     "react-icons": "^5.2.1",
+    "react-loader-spinner": "^6.1.6",
     "react-map-gl": "^7.1.7",
     "zustand": "^4.5.4"
   },

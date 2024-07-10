@@ -23,17 +23,17 @@ export default function ProfileCard() {
               isBlurred
             />
             <div className="justfiy-between flex flex-row gap-4">
-              <div className="flex h-full flex-col justify-between">
+              <div className="flex h-full flex-col justify-center">
                 <h2>Distance</h2>
                 <h1>
                   {parseInt((stats as any).all.distance, 10) ?? "loading"} MI
                 </h1>
               </div>
-              <div className="flex h-full flex-col justify-between">
+              <div className="flex h-full flex-col justify-center">
                 <h2>Duration</h2>
                 <h1>{convertTime((stats as any).all.minutes) ?? "loading"}</h1>
               </div>
-              <div className="flex h-full flex-col justify-between">
+              <div className="flex h-full flex-col justify-center">
                 <h2>Routes</h2>
                 <h1>{(stats as any).all.routes ?? "loading"}</h1>
               </div>

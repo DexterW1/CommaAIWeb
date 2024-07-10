@@ -35,7 +35,7 @@ export default function Home() {
   return (
     <div className="flex h-full min-h-[90vh] flex-col p-4 md:flex-row md:border lg:px-20 xl:px-40">
       {/* Maps container */}
-      <div className="order-1 mb-4 h-80 w-full overflow-auto md:order-2 md:h-full md:w-[100%]">
+      <div className="order-1 mb-4 h-[60vh] w-full overflow-auto md:order-2 md:h-full md:w-[100%]">
         <Maps location={location} />
       </div>
       {/* Sidebar container */}
@@ -50,11 +50,12 @@ export default function Home() {
             className="mb-2"
           />
           <SortCard />
+          {/* scroll container sidebar */}
           <div className="flex flex-col gap-4 overflow-y-auto pr-2 md:h-[50vh]">
             <RouteCard />
+            {/* <RouteCard />
             <RouteCard />
-            <RouteCard />
-            <RouteCard />
+            <RouteCard /> */}
           </div>
         </div>
       </div>

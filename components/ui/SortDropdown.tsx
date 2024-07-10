@@ -32,8 +32,7 @@ export default function SortDropdown() {
         onSelectionChange={setSelectedKeys}
       >
         <DropdownItem key="recent">Recent</DropdownItem>
-        <DropdownItem key="farthest">Farthest</DropdownItem>
-        <DropdownItem key="closest">Closest</DropdownItem>
+        <DropdownItem key="distance">Distance</DropdownItem>
         <DropdownItem key="duration">Duration</DropdownItem>
       </DropdownMenu>
     </Dropdown>

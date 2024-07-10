@@ -26,14 +26,16 @@ export default function Maps({ location }: any) {
       setMarkers(newMarkers);
     }
   }, [segments]);
+  console.log(segments);
+  if (markers[0] === undefined && markers[0] === undefined) return null;
   return (
     <div className="h-full w-full">
       <Map
         mapboxAccessToken={apikey}
         initialViewState={{
-          longitude: location.longitude ?? 0,
-          latitude: location.latitude ?? 0,
-          zoom: 14,
+          longitude: markers[0].lng ?? location.longitude,
+          latitude: markers[0].lat ?? location.latitude,
+          zoom: 10,
         }}
         style={{
           width: "100%",

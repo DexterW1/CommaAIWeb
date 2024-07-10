@@ -48,8 +48,8 @@ export const useDeviceStore = create<DeviceStore>((set, get) => ({
   },
   fetchSegments: async () => {
     const dongleID = get().dongleID;
-    const limit = 3;
-    set({ segments: getSegments(dongleID, limit) });
+    const limit = 5;
+    set({ segments: await getSegments(dongleID, limit) });
   },
   fetchAllData: async () => {
     await get().fetchDeviceData();

@@ -1,22 +1,33 @@
 "use client";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useTheme } from "next-themes";
-import Map from "react-map-gl";
+import Map, { Marker } from "react-map-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
-import { useGeolocation } from "@/utils/useGeolocation";
+import { getMarkers } from "@/utils/helperFunctions";
+import { useDeviceStore } from "@/store/deviceStore";
+import { IoLocationSharp } from "react-icons/io5";
 const apikey = process.env.MAPBOX_KEY;
-export default function Maps() {
+const colors = [
+  "#f43f5e",
+  "#d946ef",
+  "#f9a826",
+  "#2dce89",
+  "#3b82f6",
+  "#f87171",
+  "#84cc16",
+];
+export default function Maps({ location }: any) {
+  const [markers, setMarkers] = useState<any[]>([]);
   const { theme } = useTheme();
-  const { location } = useGeolocation();
-  if (!location.latitude && !location.longitude) {
-    return (
-      <div className="w-full h-full flex justify-center items-center">
-        <h1>Loading...</h1>
-      </div>
-    );
-  }
+  const { segments } = useDeviceStore((state) => state);
+  useEffect(() => {
+    if (segments) {
+      const newMarkers = getMarkers(segments);
+      setMarkers(newMarkers);
+    }
+  }, [segments]);
   return (
-    <div className="w-full h-full">
+    <div className="h-full w-full">
       <Map
         mapboxAccessToken={apikey}
         initialViewState={{
@@ -33,7 +44,24 @@ export default function Maps() {
             ? "mapbox://styles/mapbox/light-v10"
             : "mapbox://styles/mapbox/dark-v11"
         }
-      />
+      >
+        {markers &&
+          markers.map((marker, index) => {
+            if (marker.lng !== undefined && marker.lat !== undefined) {
+              return (
+                <Marker
+                  key={index}
+                  longitude={marker.lng}
+                  latitude={marker.lat}
+                  anchor="bottom"
+                >
+                  <IoLocationSharp size={30} color={colors[index]} />
+                </Marker>
+              );
+            }
+            return null;
+          })}
+      </Map>
     </div>
   );
 }

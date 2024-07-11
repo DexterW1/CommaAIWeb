@@ -44,5 +44,5 @@ export const getStaticMapUrl = async (coords: Coordinate[]) => {
   coords.forEach(({ lng, lat }) => {
     path.push([lng, lat]);
   });
-  return getPathStaticMapUrl("dark", path, 380, 192, true);
+  return getPathStaticMapUrl("dark", path, 382, 382, true);
 };

@@ -9,13 +9,18 @@ import { useGeolocation } from "@/utils/useGeolocation";
 import { useDeviceStore } from "@/store/deviceStore";
 import { Grid } from "react-loader-spinner";
 import SortCard from "@/components/SortCard";
-
+import { useRouteStore } from "@/store/routeStore";
 export default function Home() {
   const fetchAllData = useDeviceStore((state) => state.fetchAllData);
+  const fetchCoords = useRouteStore((state) => state.fetchCoords);
   const loading = useDeviceStore((state) => state.deviceLoading);
   const { location } = useGeolocation();
   useEffect(() => {
-    fetchAllData();
+    const waitforFetch = async () => {
+      await fetchAllData();
+      await fetchCoords();
+    };
+    waitforFetch();
   }, []);
   if (loading || !location)
     return (

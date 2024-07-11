@@ -4,10 +4,10 @@ import polyline from "@mapbox/polyline";
 const BASE_URL = "https://api.commadotai.com/";
 const API_KEY = process.env.COMMA_KEY;
 const MAPBOX_KEY = process.env.MAPBOX_KEY;
-const MAPBOX_USERNAME = "commaai";
+const MAPBOX_USERNAME = "mapbox";
 
-const MAPBOX_LIGHT_STYLE_ID = "clcl7mnu2000214s2zgcdly6e";
-const MAPBOX_DARK_STYLE_ID = "clcgvbi4f000q15t6o2s8gys3";
+const MAPBOX_LIGHT_STYLE_ID = "light-v11";
+const MAPBOX_DARK_STYLE_ID = "dark-v11";
 type Coords = [number, number][];
 const POLYLINE_SAMPLE_SIZE = 50;
 const POLYLINE_PRECISION = 4;
@@ -86,8 +86,8 @@ export function getPathStaticMapUrl(
   width: number,
   height: number,
   hidpi: boolean,
-  strokeWidth: number = 4,
-  color: string = "DFE0FF",
+  strokeWidth: number = 3,
+  color: string = "80f3c6",
   opacity: number = 1,
 ): string {
   const styleId =
@@ -97,8 +97,13 @@ export function getPathStaticMapUrl(
     prepareCoords(coords, POLYLINE_SAMPLE_SIZE),
     POLYLINE_PRECISION,
   );
+  const startCoord = coords[0];
+  const endCoord = coords[coords.length - 1];
+  // pin-l-embassy+f74e4e(-74.0021,40.7338)
+  const markerStart = `pin-s-car+000(${startCoord[0]},${startCoord[1]})`;
+  const markerEnd = `pin-s-embassy+f74e4e(${endCoord[0]},${endCoord[1]})`;
   const path = `path-${strokeWidth}+${color}-${opacity}(${encodeURIComponent(
     encodedPolyline,
   )})`;
-  return `https://api.mapbox.com/styles/v1/${MAPBOX_USERNAME}/${styleId}/static/${path}/auto/${width}x${height}${hidpiStr}?logo=false&attribution=false&padding=30,30,30,30&access_token=${MAPBOX_KEY}`;
+  return `https://api.mapbox.com/styles/v1/${MAPBOX_USERNAME}/${styleId}/static/${path},${markerStart},${markerEnd}/auto/${width}x${height}${hidpiStr}?logo=false&attribution=false&padding=30,30,30,30&access_token=${MAPBOX_KEY}`;
 }

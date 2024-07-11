@@ -13,8 +13,12 @@ export default function User() {
       />
       {/* name/email container */}
       <div className="flex flex-col">
-        <p className="font-bold">{profile.username ?? "Temp-Username"}</p>
-        <p className="text-sm text-gray-500">{profile.email}</p>
+        <p className="font-bold">
+          {(profile as { username?: string }).username ?? "Temp-Username"}
+        </p>
+        <p className="text-sm text-gray-500">
+          {(profile as { email?: string }).email}
+        </p>
       </div>
     </div>
   );

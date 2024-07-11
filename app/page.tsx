@@ -11,6 +11,7 @@ import { Grid } from "react-loader-spinner";
 import SortCard from "@/components/SortCard";
 import { useRouteStore } from "@/store/routeStore";
 import { Button } from "@nextui-org/button";
+import { ScrollShadow } from "@nextui-org/scroll-shadow";
 export default function Home() {
   const fetchAllData = useDeviceStore((state) => state.fetchAllData);
   const fetchCoords = useRouteStore((state) => state.fetchCoords);
@@ -57,14 +58,18 @@ export default function Home() {
           />
           <SortCard />
           {/* scroll container sidebar */}
-          <div className="flex flex-col gap-4 overflow-y-scroll pr-2 md:h-[50vh]">
+          <ScrollShadow
+            size={20}
+            visibility="bottom"
+            className="flex flex-col gap-4 overflow-y-scroll pr-2 md:h-[50vh]"
+          >
             <RouteCard />
             <div className="mb-4 flex items-center justify-center">
               <Button color="primary" variant="shadow" radius="full">
                 Load more
               </Button>
             </div>
-          </div>
+          </ScrollShadow>
         </div>
       </div>
     </div>

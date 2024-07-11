@@ -9,14 +9,14 @@ type DeviceStore = {
   device: object;
   stats: object;
   profile: object;
-  segments: object;
+  segments: [];
   dongleID: string;
   deviceLoading: boolean;
   setStats: (stats: object) => void;
   setDongleID: (dongleID: string) => void;
   setDevice: (device: object) => void;
   setProfile: (profile: object) => void;
-  setSegments: (segments: object) => void;
+  setSegments: (segments: []) => void;
   fetchDeviceData: () => void;
   fetchSegments: () => void;
   fetchProfile: () => void;
@@ -25,7 +25,7 @@ type DeviceStore = {
 export const useDeviceStore = create<DeviceStore>((set, get) => ({
   dongleID: "",
   device: {},
-  segments: {},
+  segments: [],
   profile: {},
   stats: {},
   deviceLoading: true,
@@ -33,7 +33,7 @@ export const useDeviceStore = create<DeviceStore>((set, get) => ({
   setDongleID: (dongleID: string) => set({ dongleID }),
   setDevice: (device: object) => set({ device }),
   setProfile: (profile: object) => set({ profile }),
-  setSegments: (segments: object) => set({ segments }),
+  setSegments: (segments: []) => set({ segments }),
   fetchDeviceData: async () => {
     const dataDevice = await getDevice();
     set({ device: dataDevice[0] });
@@ -48,7 +48,7 @@ export const useDeviceStore = create<DeviceStore>((set, get) => ({
   },
   fetchSegments: async () => {
     const dongleID = get().dongleID;
-    const limit = 5;
+    const limit = 3;
     set({ segments: await getSegments(dongleID, limit) });
   },
   fetchAllData: async () => {

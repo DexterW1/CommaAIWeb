@@ -9,6 +9,8 @@ const MAPBOX_USERNAME = "commaai";
 const MAPBOX_LIGHT_STYLE_ID = "clcl7mnu2000214s2zgcdly6e";
 const MAPBOX_DARK_STYLE_ID = "clcgvbi4f000q15t6o2s8gys3";
 type Coords = [number, number][];
+const POLYLINE_SAMPLE_SIZE = 50;
+const POLYLINE_PRECISION = 4;
 export async function getAccount() {
   try {
     const response = await axios.get(`${BASE_URL}v1/me/`, {
@@ -67,6 +69,17 @@ export async function getSegments(dongleID: string, limit = 3) {
 
 // Map functions
 
+function prepareCoords(coords: Coords, sampleSize: number): Coords {
+  const sample = [];
+  const step = Math.max(Math.floor(coords.length / sampleSize), 1);
+  for (let i = 0; i < coords.length; i += step) {
+    const point = coords[i];
+    // 1. mapbox uses lng,lat order
+    // 2. polyline output is off by 10x when precision is 4
+    sample.push([point[1] * 10, point[0] * 10] as [number, number]);
+  }
+  return sample;
+}
 export function getPathStaticMapUrl(
   themeId: string,
   coords: Coords,

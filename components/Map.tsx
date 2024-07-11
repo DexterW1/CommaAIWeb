@@ -26,7 +26,6 @@ export default function Maps({ location }: any) {
       setMarkers(newMarkers);
     }
   }, [segments]);
-  console.log(segments);
   if (markers[0] === undefined && markers[0] === undefined) return null;
   return (
     <div className="h-full w-full">

@@ -5,7 +5,7 @@ export const convertTime = (minutes: number): string => {
 };
 
 export const getMarkers = (segments: any) => {
-  const markers = [];
+  const markers: { lat: any; lng: any; time: any }[] = [];
   segments.forEach((segment: any) => {
     markers.push({
       lat: segment.start_lat,

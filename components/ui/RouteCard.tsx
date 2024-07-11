@@ -7,18 +7,18 @@ export default function RouteCard() {
   const routes = useRouteStore((state) => state.routes);
   if (routes.length === 0) return null;
   return (
-    // <div className="h-56 w-full">
-    <Card className="h-full w-full">
-      {/* <Divider /> */}
-      {routes.map((route, index) => (
-        <>
-          <CardBody key={index}>
-            <RouteContent data={route} />
-          </CardBody>
-          <Divider />
-        </>
-      ))}
-    </Card>
-    // </div>
+    <div className="flex-1">
+      <Card className="h-full w-full">
+        {/* <Divider /> */}
+        {routes.map((route, index) => (
+          <>
+            <CardBody key={index}>
+              <RouteContent data={route} />
+            </CardBody>
+            {index !== routes.length - 1 && <Divider />}
+          </>
+        ))}
+      </Card>
+    </div>
   );
 }

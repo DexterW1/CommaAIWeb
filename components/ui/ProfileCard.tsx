@@ -6,10 +6,7 @@ import { Image } from "@nextui-org/image";
 import { convertTime } from "@/utils/helperFunctions";
 import { useDeviceStore } from "@/store/deviceStore";
 import { useRouteStore } from "@/store/routeStore";
-const carImagePath = "public/images/car.jpg";
 export default function ProfileCard() {
-  //TESTING COORDS
-  const fetchCoords = useRouteStore((state) => state.fetchCoords);
   const stats = useDeviceStore((state) => state.stats);
   const loading = useDeviceStore((state) => state.deviceLoading);
   if (loading) return <h1>Loading...</h1>;
@@ -25,7 +22,6 @@ export default function ProfileCard() {
               alt="test"
               isBlurred
             />
-            <Button onClick={fetchCoords}>fetchCoords</Button>
             <div className="justfiy-between flex flex-row gap-4">
               <div className="flex h-full flex-col justify-center">
                 <h2>Distance</h2>

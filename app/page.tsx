@@ -56,7 +56,7 @@ export default function Home() {
           />
           <SortCard />
           {/* scroll container sidebar */}
-          <div className="flex flex-col gap-4 overflow-y-auto pr-2 md:h-[50vh]">
+          <div className="flex flex-col gap-4 overflow-y-scroll pr-2 md:h-[50vh]">
             <RouteCard />
             {/* <RouteCard />
             <RouteCard />

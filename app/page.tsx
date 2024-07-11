@@ -10,6 +10,7 @@ import { useDeviceStore } from "@/store/deviceStore";
 import { Grid } from "react-loader-spinner";
 import SortCard from "@/components/SortCard";
 import { useRouteStore } from "@/store/routeStore";
+import { Button } from "@nextui-org/button";
 export default function Home() {
   const fetchAllData = useDeviceStore((state) => state.fetchAllData);
   const fetchCoords = useRouteStore((state) => state.fetchCoords);
@@ -58,9 +59,11 @@ export default function Home() {
           {/* scroll container sidebar */}
           <div className="flex flex-col gap-4 overflow-y-scroll pr-2 md:h-[50vh]">
             <RouteCard />
-            {/* <RouteCard />
-            <RouteCard />
-            <RouteCard /> */}
+            <div className="mb-4 flex items-center justify-center">
+              <Button color="primary" variant="shadow" radius="full">
+                Load more
+              </Button>
+            </div>
           </div>
         </div>
       </div>

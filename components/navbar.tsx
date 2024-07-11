@@ -1,3 +1,4 @@
+"use client";
 import {
   Navbar as NextUINavbar,
   NavbarContent,
@@ -9,47 +10,49 @@ import {
 } from "@nextui-org/navbar";
 import { Button } from "@nextui-org/button";
 import { Link } from "@nextui-org/link";
+import Image from "next/image";
 import { link as linkStyles } from "@nextui-org/theme";
 import NextLink from "next/link";
 import clsx from "clsx";
 
 import { siteConfig } from "@/config/site";
 import { ThemeSwitch } from "@/components/theme-switch";
+import { GithubIcon, HeartFilledIcon } from "@/components/icons";
 import {
-  TwitterIcon,
-  GithubIcon,
-  DiscordIcon,
-  HeartFilledIcon,
-  SearchIcon,
-  Logo,
-} from "@/components/icons";
+  Dropdown,
+  DropdownItem,
+  DropdownMenu,
+  DropdownTrigger,
+} from "@nextui-org/dropdown";
+import { CiUser } from "react-icons/ci";
+import { TbHelp } from "react-icons/tb";
+import { CiSettings } from "react-icons/ci";
+import { CiLogout } from "react-icons/ci";
+import { Divider } from "@nextui-org/divider";
+import { Avatar } from "@nextui-org/avatar";
+import NavbarProfile from "./ui/NavbarProfile";
+import User from "./ui/User";
 
 export const Navbar = () => {
   return (
-    <NextUINavbar maxWidth="xl" position="sticky">
+    <NextUINavbar maxWidth="2xl" position="sticky">
       <NavbarContent className="basis-1/5 sm:basis-full" justify="start">
         <NavbarBrand as="li" className="max-w-fit gap-3">
           <NextLink className="flex items-center justify-start gap-1" href="/">
-            <Logo />
-            <p className="font-bold text-inherit">ACME</p>
+            <Image
+              style={{
+                cursor: "pointer",
+              }}
+              width={45}
+              height={45}
+              src="/svgs/comma.svg"
+              alt="comma ai logo"
+            />
+            <p className="text-small font-bold md:text-medium">
+              COMMA Web Challenge
+            </p>
           </NextLink>
         </NavbarBrand>
-        <ul className="ml-2 hidden justify-start gap-4 lg:flex">
-          {siteConfig.navItems.map((item) => (
-            <NavbarItem key={item.href}>
-              <NextLink
-                className={clsx(
-                  linkStyles({ color: "foreground" }),
-                  "data-[active=true]:font-medium data-[active=true]:text-primary",
-                )}
-                color="foreground"
-                href={item.href}
-              >
-                {item.label}
-              </NextLink>
-            </NavbarItem>
-          ))}
-        </ul>
       </NavbarContent>
 
       <NavbarContent
@@ -57,28 +60,48 @@ export const Navbar = () => {
         justify="end"
       >
         <NavbarItem className="hidden gap-2 sm:flex">
-          <Link isExternal aria-label="Twitter" href={siteConfig.links.twitter}>
-            <TwitterIcon className="text-default-500" />
-          </Link>
-          <Link isExternal aria-label="Discord" href={siteConfig.links.discord}>
-            <DiscordIcon className="text-default-500" />
-          </Link>
           <Link isExternal aria-label="Github" href={siteConfig.links.github}>
             <GithubIcon className="text-default-500" />
           </Link>
           <ThemeSwitch />
         </NavbarItem>
-        <NavbarItem className="hidden md:flex">
-          <Button
-            isExternal
-            as={Link}
-            className="bg-default-100 text-sm font-normal text-default-600"
-            href={siteConfig.links.sponsor}
-            startContent={<HeartFilledIcon className="text-danger" />}
-            variant="flat"
-          >
-            Sponsor
-          </Button>
+        <NavbarItem className="hidden gap-2 sm:flex">
+          <Dropdown>
+            <DropdownTrigger>
+              <Avatar
+                isBordered
+                as="button"
+                className="transition-transform"
+                size="sm"
+                src="images/avatar.png"
+              />
+            </DropdownTrigger>
+            <DropdownMenu
+              disabledKeys={["user"]}
+              variant="faded"
+              aria-label="Dropdown menu with icons"
+            >
+              <DropdownItem className="opacity-100" isReadOnly key="user">
+                <User />
+              </DropdownItem>
+              <DropdownItem key="profile" startContent={<CiUser />}>
+                Profile
+              </DropdownItem>
+              <DropdownItem
+                showDivider
+                key="settings"
+                startContent={<CiSettings />}
+              >
+                Settings
+              </DropdownItem>
+              <DropdownItem key="help" startContent={<TbHelp />}>
+                Help Center
+              </DropdownItem>
+              <DropdownItem key="logout" startContent={<CiLogout />}>
+                Logout
+              </DropdownItem>
+            </DropdownMenu>
+          </Dropdown>
         </NavbarItem>
       </NavbarContent>
 
@@ -87,30 +110,46 @@ export const Navbar = () => {
           <GithubIcon className="text-default-500" />
         </Link>
         <ThemeSwitch />
-        <NavbarMenuToggle />
-      </NavbarContent>
-
-      <NavbarMenu>
-        <div className="mx-4 mt-2 flex flex-col gap-2">
-          {siteConfig.navMenuItems.map((item, index) => (
-            <NavbarMenuItem key={`${item}-${index}`}>
-              <Link
-                color={
-                  index === 2
-                    ? "primary"
-                    : index === siteConfig.navMenuItems.length - 1
-                      ? "danger"
-                      : "foreground"
-                }
-                href="#"
-                size="lg"
+        <NavbarItem>
+          <Dropdown>
+            <DropdownTrigger>
+              <Avatar
+                isBordered
+                as="button"
+                className="transition-transform"
+                size="sm"
+                src="images/avatar.png"
+              />
+            </DropdownTrigger>
+            <DropdownMenu
+              disabledKeys={["user"]}
+              variant="faded"
+              aria-label="Dropdown menu with icons"
+            >
+              <DropdownItem className="opacity-100" isReadOnly key="user">
+                <User />
+              </DropdownItem>
+              <DropdownItem key="profile" startContent={<CiUser />}>
+                Profile
+              </DropdownItem>
+              <DropdownItem
+                showDivider
+                key="settings"
+                startContent={<CiSettings />}
               >
-                {item.label}
-              </Link>
-            </NavbarMenuItem>
-          ))}
-        </div>
-      </NavbarMenu>
+                Settings
+              </DropdownItem>
+              <DropdownItem key="help" startContent={<TbHelp />}>
+                Help Center
+              </DropdownItem>
+              <DropdownItem key="logout" startContent={<CiLogout />}>
+                Logout
+              </DropdownItem>
+            </DropdownMenu>
+          </Dropdown>
+        </NavbarItem>
+        {/* <NavbarMenuToggle /> */}
+      </NavbarContent>
     </NextUINavbar>
   );
 };

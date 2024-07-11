@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import {
   Dropdown,
   DropdownTrigger,
@@ -7,13 +7,33 @@ import {
   DropdownItem,
 } from "@nextui-org/dropdown";
 import { Button } from "@nextui-org/button";
+
+type Selection = "all" | Set<React.Key>;
+
 export default function SortDropdown() {
-  const [selectedKeys, setSelectedKeys] = React.useState(new Set(["Recent"]));
+  const [selectedKeys, setSelectedKeys] = useState<Set<string | number>>(
+    new Set(["Recent"]),
+  );
 
   const selectedValue = React.useMemo(
     () => Array.from(selectedKeys).join(", ").replaceAll("_", " "),
     [selectedKeys],
   );
+
+  const handleSelectionChange = (keys: Selection) => {
+    if (keys === "all") {
+      // Handle 'all' selection if applicable
+      return;
+    }
+
+    const newSelectedKeys = new Set<string>();
+    keys.forEach((key) => {
+      if (typeof key === "string") {
+        newSelectedKeys.add(key);
+      }
+    });
+    setSelectedKeys(newSelectedKeys);
+  };
 
   return (
     <Dropdown>
@@ -29,7 +49,7 @@ export default function SortDropdown() {
         bottomContent
         selectionMode="single"
         selectedKeys={selectedKeys}
-        onSelectionChange={setSelectedKeys}
+        onSelectionChange={handleSelectionChange}
       >
         <DropdownItem key="recent">Recent</DropdownItem>
         <DropdownItem key="distance">Distance</DropdownItem>

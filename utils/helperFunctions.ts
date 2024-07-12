@@ -24,3 +24,8 @@ export const formatRouteDistance = (route: any | undefined): string => {
   if (route?.length === undefined) return "";
   return formatDistance(route.length);
 };
+
+export const formatRouteDuration = (route: any | undefined): string => {
+  if (route?.duration === undefined) return "";
+  return convertTime(route.duration);
+};

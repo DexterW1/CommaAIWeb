@@ -3,7 +3,6 @@ import { Avatar } from "@nextui-org/avatar";
 import { useDeviceStore } from "@/store/deviceStore";
 export default function User() {
   const profile = useDeviceStore((state) => state.profile);
-  console.log("user/profiel", profile);
   return (
     <div className="flex flex-row items-center gap-4">
       <Avatar

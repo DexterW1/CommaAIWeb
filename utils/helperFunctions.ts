@@ -1,10 +1,11 @@
 import { FeatureCollection } from "geojson";
 import { getCoordArray } from "./routecoords";
 
-export const convertTime = (minutes: number): string => {
+export const convertTime = (minutes: number): object => {
   const hours = Math.floor(minutes / 60);
   const remainingMinutes = minutes % 60;
-  return `${hours}H ${remainingMinutes}M`;
+  return { h: hours, m: remainingMinutes };
+  // return `${hours}H ${remainingMinutes}M`;
 };
 const convertTime12format = (time: string) => {
   const date = new Date(time);

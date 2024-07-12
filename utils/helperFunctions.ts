@@ -30,3 +30,11 @@ export const formatRouteDuration = (route: any | undefined): string => {
   if (route?.duration === undefined) return "";
   return convertTime(route.duration);
 };
+
+export const getEveryNthPoint = (coords: number[][], n: number): number[][] => {
+  const result: number[][] = [];
+  for (let i = 0; i < coords.length; i += n) {
+    result.push(coords[i]);
+  }
+  return result;
+};

@@ -46,3 +46,14 @@ export const getStaticMapUrl = async (coords: Coordinate[]) => {
   });
   return getPathStaticMapUrl("dark", path, 382, 382, true);
 };
+
+export const getCoordArray = (coords: any) => {
+  if (coords.length === 0) {
+    return undefined;
+  }
+  const path: [number, number][] = [];
+  coords.forEach(({ lng, lat }: any) => {
+    path.push([lng, lat]);
+  });
+  return path;
+};

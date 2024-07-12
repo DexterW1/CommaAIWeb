@@ -59,6 +59,7 @@ export const useRouteStore = create<RouteStore>((set, get) => ({
         route,
         coords: coordsData,
         mapurl,
+        distance: undefined,
       });
     }
 

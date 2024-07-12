@@ -40,7 +40,6 @@ export default function Maps({ location }: any) {
       },
     ],
   };
-  console.log(geojson);
   const layerStyle: any = {
     id: "route",
     type: "line",

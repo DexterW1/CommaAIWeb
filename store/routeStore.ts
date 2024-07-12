@@ -1,11 +1,17 @@
 import { create } from "zustand";
 import { useDeviceStore } from "./deviceStore";
 import { getCoords, getStaticMapUrl } from "@/utils/routecoords";
-
+import { getRoute } from "@/api/getters";
+import {
+  formatRouteDistance,
+  // formatRouteDuration,
+} from "@/utils/helperFunctions";
 interface RouteData {
   route: object;
   coords: object[];
   mapurl: string | undefined;
+  distance: string | undefined;
+  // duration: string | undefined;
 }
 
 type RouteStore = {
@@ -21,14 +27,20 @@ export const useRouteStore = create<RouteStore>((set, get) => ({
   fetchCoords: async () => {
     const routeSegments = useDeviceStore.getState().segments;
     const routesData: RouteData[] = [];
-
     for (const route of routeSegments) {
       const coordsData = await getCoords(route);
       const mapurl = await getStaticMapUrl(coordsData);
+      const routeInfo = await getRoute((route as any).fullname ?? "");
+
+      const routeDistance = formatRouteDistance(route);
+      // const routeDuration = formatRouteDuration(route);
+      console.log(routeInfo);
       routesData.push({
-        route,
+        route: routeInfo,
         coords: coordsData,
         mapurl,
+        distance: routeDistance,
+        // duration: routeDuration,
       });
     }
 
@@ -41,6 +53,8 @@ export const useRouteStore = create<RouteStore>((set, get) => ({
     for (const route of routeSegments) {
       const coordsData = await getCoords(route);
       const mapurl = await getStaticMapUrl(coordsData);
+      const routeInfo = await getRoute((route as any).fullname ?? "");
+      console.log(routeInfo);
       routesData.push({
         route,
         coords: coordsData,

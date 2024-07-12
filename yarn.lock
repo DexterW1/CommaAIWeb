@@ -344,10 +344,10 @@
     "@react-types/overlays" "3.8.7"
     "@react-types/shared" "3.23.1"
 
-"@nextui-org/avatar@^2.0.30":
-  version "2.0.30"
-  resolved "https://registry.yarnpkg.com/@nextui-org/avatar/-/avatar-2.0.30.tgz#be8e112013dadacd45615e79af3248566adfaba2"
-  integrity sha512-FIrvdJE+dBkmU3YDR1AXTkcks/WXjbnQsojWBMAq+1oXDCcNiGMUvKBzsW0F5m5HVHhn+Edc+CbTzIZUTm78Bw==
+"@nextui-org/avatar@0.0.0-canary-20240616172522":
+  version "0.0.0-canary-20240616172522"
+  resolved "https://registry.yarnpkg.com/@nextui-org/avatar/-/avatar-0.0.0-canary-20240616172522.tgz#09ae72cac4410b8dc8469b01c89f7750774a916f"
+  integrity sha512-dW/D2jZsYK47JYXNWic58W/zxuPyO29NvyFTxD+teeuMXGFCnKQDZx8jZoPXy6ITs+gAh6Eq2od04sCJvLMATw==
   dependencies:
     "@nextui-org/react-utils" "2.0.14"
     "@nextui-org/shared-utils" "2.0.5"

@@ -3,7 +3,6 @@ import { Card, CardBody, CardFooter, CardHeader } from "@nextui-org/card";
 import { Divider } from "@nextui-org/divider";
 import RouteContent from "./RouteContent";
 import { useRouteStore } from "@/store/routeStore";
-import { ScrollShadow } from "@nextui-org/scroll-shadow";
 export default function RouteCard() {
   const routes = useRouteStore((state) => state.routes);
   if (routes.length === 0) return null;
@@ -12,12 +11,12 @@ export default function RouteCard() {
       <Card className="h-full w-full">
         {/* <Divider /> */}
         {routes.map((route, index) => (
-          <>
-            <CardBody key={index}>
+          <div key={index}>
+            <CardBody>
               <RouteContent data={route} />
             </CardBody>
             {index !== routes.length - 1 && <Divider />}
-          </>
+          </div>
         ))}
       </Card>
     </div>

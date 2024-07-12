@@ -15,3 +15,12 @@ export const getMarkers = (segments: any) => {
   });
   return markers;
 };
+export const formatDistance = (miles: number | undefined): string => {
+  if (miles === undefined) return "";
+  return `${miles.toFixed(1) ?? 0} mi`;
+};
+
+export const formatRouteDistance = (route: any | undefined): string => {
+  if (route?.length === undefined) return "";
+  return formatDistance(route.length);
+};

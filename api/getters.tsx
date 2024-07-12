@@ -66,6 +66,18 @@ export async function getSegments(dongleID: string, limit = 3) {
     console.error(err);
   }
 }
+export async function getRoute(routeName: string) {
+  try {
+    const response = await axios.get(`${BASE_URL}v1/route/${routeName}/`, {
+      headers: {
+        Authorization: `JWT ${API_KEY}`,
+      },
+    });
+    return response.data;
+  } catch (err) {
+    console.error(err);
+  }
+}
 
 // Map functions
 

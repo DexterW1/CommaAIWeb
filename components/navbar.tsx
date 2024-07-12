@@ -81,7 +81,7 @@ export const Navbar = () => {
               variant="faded"
               aria-label="Dropdown menu with icons"
             >
-              <DropdownItem className="opacity-100" isReadOnly key="user">
+              <DropdownItem className="opacity-100" key="user">
                 <User />
               </DropdownItem>
               <DropdownItem key="profile" startContent={<CiUser />}>
@@ -126,7 +126,7 @@ export const Navbar = () => {
               variant="faded"
               aria-label="Dropdown menu with icons"
             >
-              <DropdownItem className="opacity-100" isReadOnly key="user">
+              <DropdownItem className="opacity-100" key="user">
                 <User />
               </DropdownItem>
               <DropdownItem key="profile" startContent={<CiUser />}>

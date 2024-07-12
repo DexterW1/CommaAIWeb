@@ -7,19 +7,10 @@ import { getMarkers } from "@/utils/helperFunctions";
 import { useDeviceStore } from "@/store/deviceStore";
 import { IoLocationSharp } from "react-icons/io5";
 const apikey = process.env.MAPBOX_KEY;
-const colors = [
-  "#f43f5e",
-  "#d946ef",
-  "#f9a826",
-  "#2dce89",
-  "#3b82f6",
-  "#f87171",
-  "#84cc16",
-];
 export default function Maps({ location }: any) {
   const [markers, setMarkers] = useState<any[]>([]);
   const { theme } = useTheme();
-  const { segments } = useDeviceStore((state) => state);
+  const segments = useDeviceStore((state) => state.segments).slice(0, 5);
   useEffect(() => {
     if (segments) {
       const newMarkers = getMarkers(segments);
@@ -30,6 +21,7 @@ export default function Maps({ location }: any) {
   return (
     <div className="h-full w-full">
       <Map
+        id="commaMap"
         mapboxAccessToken={apikey}
         initialViewState={{
           longitude: markers[0].lng ?? location.longitude,
@@ -56,7 +48,7 @@ export default function Maps({ location }: any) {
                   latitude={marker.lat}
                   anchor="bottom"
                 >
-                  <IoLocationSharp size={30} color={colors[index]} />
+                  <IoLocationSharp size={30} color={marker.color} />
                 </Marker>
               );
             }

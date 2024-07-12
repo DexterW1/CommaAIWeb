@@ -22,6 +22,19 @@ type DeviceStore = {
   fetchProfile: () => void;
   fetchAllData: () => void;
 };
+
+const colors = [
+  "#e6194B", // Red
+  "#f58231", // Orange
+  "#ffe119", // Yellow
+  "#bfef45", // Lime
+  "#3cb44b", // Green
+  "#42d4f4", // Cyan
+  "#4363d8", // Blue
+  "#911eb4", // Purple
+  "#f032e6", // Magenta
+  "#a9a9a9", // Grey
+];
 export const useDeviceStore = create<DeviceStore>((set, get) => ({
   dongleID: "",
   device: {},
@@ -48,8 +61,16 @@ export const useDeviceStore = create<DeviceStore>((set, get) => ({
   },
   fetchSegments: async () => {
     const dongleID = get().dongleID;
-    const limit = 3;
-    set({ segments: await getSegments(dongleID, limit) });
+    const limit = 10;
+    const segmentsData = await getSegments(dongleID, limit);
+    const segmentsWithColors = segmentsData.map(
+      (segment: any, index: number) => ({
+        ...segment,
+        color: colors[index],
+      }),
+    );
+    set({ segments: segmentsWithColors });
+    // set({ segments: await getSegments(dongleID, limit) });
   },
   fetchAllData: async () => {
     await get().fetchDeviceData();

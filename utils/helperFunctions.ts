@@ -5,12 +5,13 @@ export const convertTime = (minutes: number): string => {
 };
 
 export const getMarkers = (segments: any) => {
-  const markers: { lat: any; lng: any; time: any }[] = [];
+  const markers: { lat: any; lng: any; time: any; color: string }[] = [];
   segments.forEach((segment: any) => {
     markers.push({
       lat: segment.start_lat,
       lng: segment.start_lng,
       time: segment.create_time,
+      color: segment.color,
     });
   });
   return markers;

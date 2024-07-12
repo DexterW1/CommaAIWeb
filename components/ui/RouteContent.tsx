@@ -13,7 +13,6 @@ export default function RouteContent({ data }: any) {
           alt="route image"
         />
       </div>
-
       {/* content container */}
       <div>
         <div className="flex flex-row items-center gap-2">
@@ -21,6 +20,10 @@ export default function RouteContent({ data }: any) {
             <FaCar size={15} />
           </div>
           <h1 className="text-small text-zinc-400">7:30 AM - 7:47 AM</h1>
+        </div>
+        {/* distance */}
+        <div>
+          <p>{data.distance}</p>
         </div>
       </div>
     </div>

@@ -68,6 +68,9 @@ export default function Maps({ location }: any) {
                   longitude={marker.lng}
                   latitude={marker.lat}
                   anchor="bottom"
+                  // onClick={() => {
+
+                  // }}
                 >
                   <IoLocationSharp
                     size={selectedRoute === index ? 40 : 30}

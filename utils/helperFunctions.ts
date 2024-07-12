@@ -6,6 +6,14 @@ export const convertTime = (minutes: number): string => {
   const remainingMinutes = minutes % 60;
   return `${hours}H ${remainingMinutes}M`;
 };
+const convertTime12format = (time: string) => {
+  const date = new Date(time);
+  const minutes = date.getMinutes();
+  const hours = date.getHours();
+  const ampm = hours >= 12 ? "PM" : "AM";
+  const formattedHours = hours % 12 || 12;
+  return `${formattedHours}:${minutes} ${ampm}`;
+};
 
 export const getMarkers = (segments: any) => {
   const markers: { lat: any; lng: any; time: any; color: string }[] = [];
@@ -30,8 +38,11 @@ export const formatRouteDistance = (route: any | undefined): string => {
 };
 
 export const formatRouteDuration = (route: any | undefined): string => {
-  if (route?.duration === undefined) return "";
-  return convertTime(route.duration);
+  if (route?.length === undefined) return "";
+  const startTime = convertTime12format(route.start_time);
+  const endTime = convertTime12format(route.end_time);
+  return `${startTime} - ${endTime}`;
+  // return convertTime(route.duration);
 };
 
 export const getEveryNthPoint = (coords: number[][], n: number): number[][] => {

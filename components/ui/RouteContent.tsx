@@ -19,7 +19,7 @@ export default function RouteContent({ data }: any) {
           <div className="rounded-full bg-blue-500 p-2">
             <FaCar size={15} />
           </div>
-          <h1 className="text-small text-zinc-400">7:30 AM - 7:47 AM</h1>
+          <h1 className="text-small text-zinc-400">{data.duration}</h1>
         </div>
         {/* distance */}
         <div>

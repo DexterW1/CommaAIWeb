@@ -5,7 +5,7 @@ import { getRoute } from "@/api/getters";
 
 import {
   formatRouteDistance,
-  // formatRouteDuration,
+  formatRouteDuration,
 } from "@/utils/helperFunctions";
 
 interface RouteData {
@@ -14,7 +14,7 @@ interface RouteData {
   mapurl: string | undefined;
   distance: string | undefined;
   color: string;
-  // duration: string | undefined;
+  duration: string | undefined;
 }
 
 type RouteStore = {
@@ -40,6 +40,8 @@ export const useRouteStore = create<RouteStore>((set, get) => ({
       const routeInfo = await getRoute((route as any).fullname ?? "");
 
       const routeDistance = formatRouteDistance(route);
+      const routeDuration = formatRouteDuration(route);
+      // console.log(routeDuration);
       // const routeDuration = formatRouteDuration(route);
       // console.log(routeInfo);
       routesData.push({
@@ -48,7 +50,7 @@ export const useRouteStore = create<RouteStore>((set, get) => ({
         mapurl,
         distance: routeDistance,
         color: (route as any).color,
-        // duration: routeDuration,
+        duration: routeDuration,
       });
     }
 

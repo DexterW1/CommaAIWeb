@@ -19,6 +19,7 @@ export default function RouteCard() {
     }
   };
   if (routes.length === 0) return null;
+  console.log(routes);
   return (
     <div className="flex-1">
       <Card className="h-full w-full">

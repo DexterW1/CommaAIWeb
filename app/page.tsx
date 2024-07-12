@@ -40,7 +40,7 @@ export default function Home() {
       </div>
     );
   return (
-    <div className="flex h-full min-h-[90vh] flex-col p-4 md:flex-row md:border lg:px-20 xl:px-40">
+    <div className="flex h-full min-h-[90vh] flex-col p-4 md:flex-row lg:px-20 xl:px-40">
       {/* Maps container */}
       <div className="order-1 mb-4 h-[60vh] w-full overflow-auto md:order-2 md:h-full md:w-[60%] lg:w-full">
         <Maps location={location} />

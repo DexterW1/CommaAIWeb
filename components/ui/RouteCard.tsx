@@ -1,14 +1,15 @@
 "use client";
-import React, { useState } from "react";
-import { Card, CardBody, CardFooter, CardHeader } from "@nextui-org/card";
+import React from "react";
+import { Card, CardBody } from "@nextui-org/card";
 import { Divider } from "@nextui-org/divider";
 import RouteContent from "./RouteContent";
 import { useRouteStore } from "@/store/routeStore";
 import { useMap } from "react-map-gl";
 export default function RouteCard() {
-  const routes = useRouteStore((state) => state.routes.slice(0, 5)); // Only get the first 5 routes
+  const routes = useRouteStore((state) => state.routes); // Only get the first 5 routes
   const { commaMap } = useMap();
-  const [selectedRoute, setSelectedRoute] = useState(0);
+  const selectedRoute = useRouteStore((state) => state.selectedRoute);
+  const setSelectedRoute = useRouteStore((state) => state.setSelectedRoute);
   const handleClick = (index: number) => {
     setSelectedRoute(index);
     const lng = routes[index].route.start_lng;

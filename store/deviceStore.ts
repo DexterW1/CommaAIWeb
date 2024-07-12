@@ -6,12 +6,14 @@ import {
   getSegments,
 } from "@/api/getters";
 type DeviceStore = {
+  limit: number;
   device: object;
   stats: object;
   profile: object;
   segments: [];
   dongleID: string;
   deviceLoading: boolean;
+  setLimit: (limit: number) => void;
   setStats: (stats: object) => void;
   setDongleID: (dongleID: string) => void;
   setDevice: (device: object) => void;
@@ -42,6 +44,8 @@ export const useDeviceStore = create<DeviceStore>((set, get) => ({
   profile: {},
   stats: {},
   deviceLoading: true,
+  limit: 5,
+  setLimit: (limit: number) => set({ limit }),
   setStats: (stats: object) => set({ stats }),
   setDongleID: (dongleID: string) => set({ dongleID }),
   setDevice: (device: object) => set({ device }),
@@ -61,7 +65,7 @@ export const useDeviceStore = create<DeviceStore>((set, get) => ({
   },
   fetchSegments: async () => {
     const dongleID = get().dongleID;
-    const limit = 10;
+    const limit = get().limit;
     const segmentsData = await getSegments(dongleID, limit);
     const segmentsWithColors = segmentsData.map(
       (segment: any, index: number) => ({

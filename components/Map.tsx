@@ -3,18 +3,26 @@ import React, { useState, useEffect } from "react";
 import { useTheme } from "next-themes";
 import Map, { Marker, Source, Layer } from "react-map-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
-import { getMarkers } from "@/utils/helperFunctions";
+import { getGeoJson, getMarkers } from "@/utils/helperFunctions";
 import { useDeviceStore } from "@/store/deviceStore";
 import { useRouteStore } from "@/store/routeStore";
 import { IoLocationSharp } from "react-icons/io5";
-import { getCoordArray } from "@/utils/routecoords";
-import { getEveryNthPoint } from "@/utils/helperFunctions";
 import { FeatureCollection } from "geojson";
 const apikey = process.env.MAPBOX_KEY;
+const layerStyle: any = {
+  id: "route",
+  type: "line",
+  paint: {
+    "line-color": "#80f3c6",
+    "line-width": 6,
+  },
+};
 export default function Maps({ location }: any) {
   const [markers, setMarkers] = useState<any[]>([]);
+  const [geojson, setGeojson] = useState<FeatureCollection | null>(null);
   const { theme } = useTheme();
   const routes = useRouteStore((state) => state.routes);
+  const selectedRoute = useRouteStore((state) => state.selectedRoute);
   const segments = useDeviceStore((state) => state.segments);
   useEffect(() => {
     if (segments) {
@@ -22,33 +30,15 @@ export default function Maps({ location }: any) {
       setMarkers(newMarkers);
     }
   }, [segments]);
-  if (markers[0] === undefined && markers[0] === undefined) {
+  useEffect(() => {
+    if (routes.length > 0) {
+      const newGeojson = getGeoJson(routes[selectedRoute].coords);
+      setGeojson(newGeojson);
+    }
+  }, [routes, selectedRoute]);
+  if (markers[0] === undefined || geojson === null) {
     return null;
   }
-  if (!routes[0]?.coords) {
-    return null;
-  }
-  const modifiedCoords =
-    getEveryNthPoint(getCoordArray(routes[1].coords) || [], 3) || [];
-  const geojson: FeatureCollection = {
-    type: "FeatureCollection",
-    features: [
-      {
-        type: "Feature",
-        geometry: { type: "LineString", coordinates: modifiedCoords },
-        properties: null,
-      },
-    ],
-  };
-  const layerStyle: any = {
-    id: "route",
-    type: "line",
-    paint: {
-      "line-color": "#80f3c6",
-      "line-width": 6,
-    },
-  };
-  // console.log(routes);
   return (
     <div className="h-full w-full">
       <Map
@@ -79,15 +69,20 @@ export default function Maps({ location }: any) {
                   latitude={marker.lat}
                   anchor="bottom"
                 >
-                  <IoLocationSharp size={30} color={marker.color} />
+                  <IoLocationSharp
+                    size={selectedRoute === index ? 40 : 30}
+                    color={marker.color}
+                  />
                 </Marker>
               );
             }
             return null;
           })}
-        <Source id="route" type="geojson" data={geojson}>
-          <Layer {...layerStyle} />
-        </Source>
+        {geojson && (
+          <Source id="route" type="geojson" data={geojson}>
+            <Layer {...layerStyle} />
+          </Source>
+        )}
       </Map>
     </div>
   );

@@ -1,3 +1,6 @@
+import { FeatureCollection } from "geojson";
+import { getCoordArray } from "./routecoords";
+
 export const convertTime = (minutes: number): string => {
   const hours = Math.floor(minutes / 60);
   const remainingMinutes = minutes % 60;
@@ -37,4 +40,19 @@ export const getEveryNthPoint = (coords: number[][], n: number): number[][] => {
     result.push(coords[i]);
   }
   return result;
+};
+export const getGeoJson = (coords: any) => {
+  if (coords === undefined) return null;
+  const modifiedCoords = getEveryNthPoint(getCoordArray(coords) || [], 3) || [];
+  const geojson: FeatureCollection = {
+    type: "FeatureCollection",
+    features: [
+      {
+        type: "Feature",
+        geometry: { type: "LineString", coordinates: modifiedCoords },
+        properties: null,
+      },
+    ],
+  };
+  return geojson;
 };

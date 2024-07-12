@@ -19,6 +19,8 @@ interface RouteData {
 
 type RouteStore = {
   routes: RouteData[];
+  selectedRoute: number;
+  setSelectedRoute: (index: number) => void;
   fetchCoords: () => void;
   setRoutes: (routes: RouteData[]) => void;
   // fetchAllRoutes: () => void;
@@ -26,7 +28,9 @@ type RouteStore = {
 
 export const useRouteStore = create<RouteStore>((set, get) => ({
   routes: [],
+  selectedRoute: 0,
   setRoutes: (routes: RouteData[]) => set({ routes }),
+  setSelectedRoute: (index: number) => set({ selectedRoute: index }),
   fetchCoords: async () => {
     const routeSegments = useDeviceStore.getState().segments;
     const routesData: RouteData[] = [];

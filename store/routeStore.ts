@@ -6,6 +6,7 @@ import { getRoute } from "@/api/getters";
 import {
   formatRouteDistance,
   formatRouteDuration,
+  convertDate,
 } from "@/utils/helperFunctions";
 
 interface RouteData {
@@ -15,6 +16,7 @@ interface RouteData {
   distance: string | undefined;
   color: string;
   duration: string | undefined;
+  date: string | undefined;
 }
 
 type RouteStore = {
@@ -23,7 +25,7 @@ type RouteStore = {
   setSelectedRoute: (index: number) => void;
   fetchCoords: () => void;
   setRoutes: (routes: RouteData[]) => void;
-  // fetchAllRoutes: () => void;
+  sortRoutes: (sortBy: string) => void;
 };
 
 export const useRouteStore = create<RouteStore>((set, get) => ({
@@ -41,6 +43,7 @@ export const useRouteStore = create<RouteStore>((set, get) => ({
 
       const routeDistance = formatRouteDistance(route);
       const routeDuration = formatRouteDuration(route);
+      const routeDate = convertDate((route as any).start_time);
       // console.log(routeDuration);
       // const routeDuration = formatRouteDuration(route);
       // console.log(routeInfo);
@@ -51,28 +54,31 @@ export const useRouteStore = create<RouteStore>((set, get) => ({
         distance: routeDistance,
         color: (route as any).color,
         duration: routeDuration,
+        date: routeDate,
       });
     }
 
     set({ routes: routesData });
   },
-  // fetchAllRoutes: async () => {
-  //   const routeSegments = useDeviceStore.getState().segments;
-  //   const routesData: RouteData[] = [];
-
-  //   for (const route of routeSegments) {
-  //     const coordsData = await getCoords(route);
-  //     const mapurl = await getStaticMapUrl(coordsData);
-  //     const routeInfo = await getRoute((route as any).fullname ?? "");
-  //     console.log(routeInfo);
-  //     routesData.push({
-  //       route,
-  //       coords: coordsData,
-  //       mapurl,
-  //       distance: undefined,
-  //     });
-  //   }
-
-  //   set({ routes: routesData });
-  // },
+  sortRoutes: (sortBy: string) => {
+    const routes = get().routes;
+    let sortedRoutes = [...routes];
+    if (sortBy === "recent") {
+      sortedRoutes = routes.sort((a, b) => {
+        return (
+          new Date(b.date ?? "").getTime() - new Date(a.date ?? "").getTime()
+        );
+      });
+    } else if (sortBy === "distance") {
+      sortedRoutes = routes.sort((a, b) => {
+        return (b.route.length ?? 0) - (a.route.length ?? 0);
+      });
+    } else if (sortBy === "duration") {
+      sortedRoutes = routes.sort((a, b) => {
+        return (b.route.duration ?? 0) - (a.route.duration ?? 0);
+      });
+    }
+    console.log(sortedRoutes);
+    set({ routes: sortedRoutes });
+  },
 }));

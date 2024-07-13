@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import { Card, CardBody } from "@nextui-org/card";
 import { Divider } from "@nextui-org/divider";
 import RouteContent from "./RouteContent";
@@ -19,7 +19,9 @@ export default function RouteCard() {
     }
   };
   if (routes.length === 0) return null;
-  console.log(routes);
+  // useEffect(() => {
+  //   console.log(routes);
+  // }, [routes]);
   return (
     <div className="flex-1">
       <Card className="h-full w-full">

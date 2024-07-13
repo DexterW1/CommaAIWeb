@@ -46,7 +46,7 @@ export default function Home() {
         <Maps location={location} />
       </div>
       {/* Sidebar container */}
-      <div className="order-2 flex flex-col items-center gap-4 md:order-1 md:mr-4 md:w-[40%]">
+      <div className="order-2 flex flex-col items-center gap-4 md:order-1 md:mr-4 md:w-[60%] 2xl:w-[40%]">
         <ProfileCard />
         <div className="flex w-full flex-col gap-2 md:h-full">
           <h1 className="text-large text-zinc-400">Routes</h1>

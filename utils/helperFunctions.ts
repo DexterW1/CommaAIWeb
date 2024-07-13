@@ -7,9 +7,20 @@ export const convertTime = (minutes: number): object => {
   return { h: hours, m: remainingMinutes };
   // return `${hours}H ${remainingMinutes}M`;
 };
+export const convertDate = (date: string): string => {
+  const newDate = new Date(date);
+  const options: Intl.DateTimeFormatOptions = {
+    weekday: "short",
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  };
+  return newDate.toLocaleDateString("en-US", options);
+};
+
 const convertTime12format = (time: string) => {
   const date = new Date(time);
-  const minutes = date.getMinutes();
+  const minutes = date.getMinutes().toString().padStart(2, "0");
   const hours = date.getHours();
   const ampm = hours >= 12 ? "PM" : "AM";
   const formattedHours = hours % 12 || 12;

@@ -7,13 +7,14 @@ import {
   DropdownItem,
 } from "@nextui-org/dropdown";
 import { Button } from "@nextui-org/button";
-
+import { useRouteStore } from "@/store/routeStore";
 type Selection = "all" | Set<React.Key>;
 
 export default function SortDropdown() {
   const [selectedKeys, setSelectedKeys] = useState<Set<string | number>>(
     new Set(["Recent"]),
   );
+  const sortRoutes = useRouteStore((state) => state.sortRoutes);
 
   const selectedValue = React.useMemo(
     () => Array.from(selectedKeys).join(", ").replaceAll("_", " "),
@@ -33,6 +34,7 @@ export default function SortDropdown() {
       }
     });
     setSelectedKeys(newSelectedKeys);
+    sortRoutes(newSelectedKeys.values().next().value);
   };
 
   return (

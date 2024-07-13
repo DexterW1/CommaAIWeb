@@ -15,14 +15,14 @@ export default function ProfileCard() {
     <div className="w-full">
       <Card className="h-full">
         <CardBody>
-          <div className="flex flex-row gap-4">
-            <Image
+          <div className="flex flex-row justify-evenly">
+            {/* <Image
               width={150}
               height={150}
               src="images/car.jpg"
               alt="test"
               isBlurred
-            />
+            /> */}
             <div className="justfiy-between flex flex-row gap-4">
               <div className="flex h-full flex-col justify-center">
                 <h1 className="text-2xl">

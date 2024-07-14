@@ -78,7 +78,32 @@ export async function getRoute(routeName: string) {
     console.error(err);
   }
 }
-
+export async function getRouteShareSignature(routeName: string) {
+  try {
+    const response = await axios.get(
+      `${BASE_URL}v1/route/${routeName}/share_signature`,
+      {
+        headers: {
+          Authorization: `JWT ${API_KEY}`,
+        },
+      },
+    );
+    return response.data;
+  } catch (err) {
+    console.error(err);
+  }
+}
+export function createQCameraStreamUrl(
+  routeName: string,
+  signature: any,
+): string {
+  return `${BASE_URL}/v1/route/${routeName}/qcamera.m3u8?${new URLSearchParams(signature).toString()}`;
+}
+export async function getQCameraStreamUrl(routeName: string): Promise<string> {
+  return getRouteShareSignature(routeName).then((signature) => {
+    return createQCameraStreamUrl(routeName, signature);
+  });
+}
 // Map functions
 
 function prepareCoords(coords: Coords, sampleSize: number): Coords {

@@ -15,37 +15,28 @@ export default function ProfileCard() {
     <div className="w-full">
       <Card className="h-full">
         <CardBody>
-          <div className="flex flex-row justify-evenly">
-            {/* <Image
-              width={150}
-              height={150}
-              src="images/car.jpg"
-              alt="test"
-              isBlurred
-            /> */}
-            <div className="justfiy-between flex flex-row gap-4">
-              <div className="flex h-full flex-col justify-center">
-                <h1 className="text-2xl">
-                  {parseInt((stats as any).all.distance, 10) ?? "loading"}{" "}
-                  <span className="text-sm">MI</span>
-                </h1>
-                <h1 className="text-sm text-zinc-500">Distance</h1>
-              </div>
-              <div className="flex h-full flex-col justify-center">
-                <h1 className="text-2xl">
-                  {(time as any).h}
-                  <span className="text-sm"> H </span>
-                  {(time as any).m}
-                  <span className="text-sm"> M </span>
-                </h1>
-                <h1 className="text-sm text-zinc-500">Duration</h1>
-              </div>
-              <div className="flex h-full flex-col justify-center">
-                <h1 className="text-2xl">
-                  {(stats as any).all.routes ?? "loading"}
-                </h1>
-                <h1 className="text-sm text-zinc-500">Routes</h1>
-              </div>
+          <div className="flex flex-row justify-evenly gap-4">
+            <div className="flex h-full flex-col justify-center">
+              <h1 className="text-2xl">
+                {parseInt((stats as any).all.distance, 10) ?? "loading"}{" "}
+                <span className="text-sm">MI</span>
+              </h1>
+              <h1 className="text-sm text-zinc-500">Distance</h1>
+            </div>
+            <div className="flex h-full flex-col justify-center">
+              <h1 className="text-2xl">
+                {(time as any).h}
+                <span className="text-sm"> H </span>
+                {(time as any).m}
+                <span className="text-sm"> M </span>
+              </h1>
+              <h1 className="text-sm text-zinc-500">Duration</h1>
+            </div>
+            <div className="flex h-full flex-col justify-center">
+              <h1 className="text-2xl">
+                {(stats as any).all.routes ?? "loading"}
+              </h1>
+              <h1 className="text-sm text-zinc-500">Routes</h1>
             </div>
           </div>
         </CardBody>

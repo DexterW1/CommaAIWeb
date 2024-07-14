@@ -6,14 +6,14 @@ import { Button, ButtonGroup } from "@nextui-org/button";
 import { getQCameraStreamUrl } from "@/api/getters";
 import { FiDownload, FiStar } from "react-icons/fi";
 import { GoStarFill } from "react-icons/go";
-import { FaShareFromSquare } from "react-icons/fa6";
+import { IoMdShareAlt } from "react-icons/io";
 
 export default function TransparentModal({ isOpen, onClose, data }: any) {
   const videoref = useRef<null | HTMLVideoElement>(null);
   const [isFavorite, setIsFavorite] = React.useState(false);
   useEffect(() => {
     const fetchVideo = async () => {
-      const hls = new Hls({ debug: true });
+      const hls = new Hls();
       if (Hls.isSupported()) {
         const videoUrl = await getQCameraStreamUrl(data.route.fullname);
         hls.loadSource(videoUrl);
@@ -33,28 +33,27 @@ export default function TransparentModal({ isOpen, onClose, data }: any) {
       fetchVideo();
     }
   }, [isOpen, data.route.fullname]);
-  console.log(getQCameraStreamUrl(data.route.fullname));
   if (!isOpen) return null;
   return (
-    <Card className="absolute right-4 top-4 flex h-[90%] w-[80%] items-center justify-center md:w-[60%] xl:w-[45%]">
-      <CardHeader className="flex justify-end">
+    <Card className="absolute right-4 top-4 flex h-[90%] w-[80%] items-center justify-center md:w-[60%] xl:w-[40%]">
+      <CardHeader className="flex justify-end pb-0">
         <Button radius="full" isIconOnly onClick={onClose}>
           X
         </Button>
       </CardHeader>
       <CardBody>
         <div className="mb-4">
-          <h1>{data.date}</h1>
+          <h1 className="text-large">{data.date}</h1>
           <p>{data.distance}</p>
           <p>{data.duration}</p>
           <video
             ref={videoref}
             autoPlay={false}
             controls
-            className="rounded-lg"
+            className="rounded-lg lg:w-full"
           />
         </div>
-        <ButtonGroup>
+        <ButtonGroup variant="flat">
           <Button
             onClick={() => setIsFavorite(!isFavorite)}
             endContent={
@@ -64,11 +63,9 @@ export default function TransparentModal({ isOpen, onClose, data }: any) {
                 <FiStar size={20} color="gold" />
               )
             }
-          >
-            Favorite
-          </Button>
-          <Button endContent={<FiDownload size={20} />}>Download</Button>
-          <Button endContent={<FaShareFromSquare size={20} />}>Share</Button>
+          />
+          <Button endContent={<FiDownload size={20} />} />
+          <Button endContent={<IoMdShareAlt size={20} />} />
         </ButtonGroup>
       </CardBody>
     </Card>

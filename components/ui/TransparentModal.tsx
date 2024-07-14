@@ -8,15 +8,15 @@ import { FiDownload, FiStar } from "react-icons/fi";
 import { GoStarFill } from "react-icons/go";
 import { IoMdShareAlt } from "react-icons/io";
 
-export default function TransparentModal({ isOpen, onClose, data }: any) {
+export default function TransparentModal({ isOpen, onClose, data, url }: any) {
   const videoref = useRef<null | HTMLVideoElement>(null);
   const [isFavorite, setIsFavorite] = React.useState(false);
   useEffect(() => {
     const fetchVideo = async () => {
       const hls = new Hls();
       if (Hls.isSupported()) {
-        const videoUrl = await getQCameraStreamUrl(data.route.fullname);
-        hls.loadSource(videoUrl);
+        // const videoUrl = await getQCameraStreamUrl(data.route.fullname);
+        hls.loadSource(url);
         if (videoref.current) {
           hls.attachMedia(videoref.current);
         }
@@ -24,8 +24,7 @@ export default function TransparentModal({ isOpen, onClose, data }: any) {
         videoref.current &&
         videoref.current.canPlayType("application/vnd.apple.mpegurl")
       ) {
-        const videoUrl = await getQCameraStreamUrl(data.route.fullname);
-        videoref.current.src = videoUrl;
+        videoref.current.src = url;
       }
     };
 

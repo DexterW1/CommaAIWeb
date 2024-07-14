@@ -44,6 +44,7 @@ export default function Maps({ location }: any) {
   if (markers[0] === undefined || geojson === null) {
     return null;
   }
+  console.log(routes);
   return (
     <div className="relative h-full w-full">
       <Map
@@ -114,6 +115,7 @@ export default function Maps({ location }: any) {
       <TransparentModal
         // show={showModal}
         data={routes[selectedRoute]}
+        url={routes[selectedRoute].videoUrl}
         isOpen={showModal}
         onClose={() => setShowModal(false)}
         title="Route Details"

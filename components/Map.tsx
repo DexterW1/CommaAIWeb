@@ -10,6 +10,7 @@ import { useRouteStore } from "@/store/routeStore";
 import { IoLocationSharp } from "react-icons/io5";
 import { FeatureCollection } from "geojson";
 import { Button } from "@nextui-org/button";
+import { FiMenu } from "react-icons/fi";
 import TransparentModal from "./ui/TransparentModal";
 const apikey = process.env.MAPBOX_KEY;
 const layerStyle: any = {
@@ -68,6 +69,7 @@ export default function Maps({ location }: any) {
             <Popover key={index}>
               <PopoverTrigger>
                 <Marker
+                  className="z-0"
                   key={index}
                   longitude={marker.lng}
                   latitude={marker.lat}
@@ -97,6 +99,18 @@ export default function Maps({ location }: any) {
           </Source>
         )}
       </Map>
+      {!showModal && (
+        <Button
+          onClick={() => setShowModal(true)}
+          className="absolute right-4 top-4"
+          color="primary"
+          variant="shadow"
+          radius="full"
+          isIconOnly
+        >
+          <FiMenu size={25} />
+        </Button>
+      )}
       <TransparentModal
         // show={showModal}
         data={routes[selectedRoute]}

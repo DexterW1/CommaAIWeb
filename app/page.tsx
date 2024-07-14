@@ -16,7 +16,7 @@ export default function Home() {
   const fetchAllData = useDeviceStore((state) => state.fetchAllData);
   const fetchCoords = useRouteStore((state) => state.fetchCoords);
   const loading = useDeviceStore((state) => state.deviceLoading);
-  const { location } = useGeolocation();
+  // const { location } = useGeolocation();
   useEffect(() => {
     const waitforFetch = async () => {
       await fetchAllData();

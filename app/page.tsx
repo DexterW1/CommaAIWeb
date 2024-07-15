@@ -61,7 +61,7 @@ export default function Home() {
           <ScrollShadow
             size={20}
             visibility="bottom"
-            className="flex flex-col gap-4 overflow-y-scroll pr-2 md:h-[50vh]"
+            className="flex flex-col gap-4 overflow-y-scroll pr-2 md:h-[55vh]"
           >
             <RouteCard />
             <div className="mb-4 flex items-center justify-center">

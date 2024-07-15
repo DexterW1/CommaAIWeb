@@ -42,9 +42,12 @@ export default function TransparentModal({ isOpen, onClose, data, url }: any) {
       </CardHeader>
       <CardBody>
         <div className="mb-4">
-          <h1 className="text-large">{data.date}</h1>
-          <p>{data.distance}</p>
-          <p>{data.duration}</p>
+          <div>
+            <h1 className="text-large">{data.date}</h1>
+            {/* <p>{data.distance}</p> */}
+            <p>{data.duration}</p>
+          </div>
+
           <video
             ref={videoref}
             autoPlay={false}

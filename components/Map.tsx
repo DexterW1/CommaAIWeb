@@ -44,7 +44,7 @@ export default function Maps({ location }: any) {
   if (markers[0] === undefined || geojson === null) {
     return null;
   }
-  console.log(routes);
+  // console.log(routes);
   return (
     <div className="relative h-full w-full">
       <Map

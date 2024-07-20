@@ -24,7 +24,7 @@ export default function Home() {
     };
     waitforFetch();
   }, []);
-  if (loading || !location)
+  if (loading)
     return (
       <div className="flex h-[90vh] w-full flex-col items-center justify-center">
         <Grid

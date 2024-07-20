@@ -57,3 +57,10 @@ export const getCoordArray = (coords: any) => {
   });
   return path;
 };
+
+export const reverseLookup = (coords: Coordinate[], navFormat = false) => {
+  if (coords.length === 0) {
+    return null;
+  }
+  const endpoint = "https://api.mapbox.com/geocoding/v5/mapbox.places/";
+};

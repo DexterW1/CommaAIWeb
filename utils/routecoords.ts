@@ -1,5 +1,6 @@
 import axios from "axios";
 import { getPathStaticMapUrl } from "@/api/getters";
+const MAPBOX_KEY = process.env.MAPBOX_KEY;
 export const getUrls = async <T>(route: any, fn: string): Promise<T[]> => {
   let urls: string[] = [];
   if (route) {
@@ -58,9 +59,24 @@ export const getCoordArray = (coords: any) => {
   return path;
 };
 
-export const reverseLookup = (coords: Coordinate[], navFormat = false) => {
-  if (coords.length === 0) {
-    return null;
-  }
+export const reverseLookup = async (coords: Coordinate, navFormat = false) => {
   const endpoint = "https://api.mapbox.com/geocoding/v5/mapbox.places/";
+  let response = null;
+  try {
+    response = axios.get(
+      `${endpoint}${coords.lng},${coords.lat}.json?&access_token=${MAPBOX_KEY}&limit=1`,
+    );
+  } catch (error) {
+    console.error("Error fetching coordinates:", error);
+    return null; // or handle the error accordingly
+  }
+  try {
+    const { features } = (await response).data;
+    const address = features[0].context[0].text;
+    const city = features[0].context[2].text;
+    return { address, city };
+  } catch (error) {
+    console.error("Error fetching coordinates:", error);
+    return null; // or handle the error accordingly
+  }
 };

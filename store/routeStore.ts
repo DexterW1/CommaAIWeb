@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { useDeviceStore } from "./deviceStore";
-import { getCoords, getStaticMapUrl } from "@/utils/routecoords";
+import { getCoords, getStaticMapUrl, reverseLookup } from "@/utils/routecoords";
 import { getRoute } from "@/api/getters";
 import { getQCameraStreamUrl } from "@/api/getters";
 import {
@@ -18,6 +18,7 @@ interface RouteData {
   duration: string | undefined;
   date: string | undefined;
   videoUrl: string | undefined;
+  city: (object | null)[] | undefined;
 }
 
 type RouteStore = {
@@ -45,6 +46,11 @@ export const useRouteStore = create<RouteStore>((set, get) => ({
       const routeDistance = formatRouteDistance(route);
       const routeDuration = formatRouteDuration(route);
       const routeDate = convertDate((route as any).start_time);
+      const start_loc = { lat: routeInfo.start_lat, lng: routeInfo.start_lng };
+      const end_loc = { lat: routeInfo.end_lat, lng: routeInfo.end_lng };
+      const startCity = await reverseLookup(start_loc);
+      const endCity = await reverseLookup(end_loc);
+      const routeCity = [startCity, endCity];
       routesData.push({
         route: routeInfo,
         coords: coordsData,
@@ -54,6 +60,7 @@ export const useRouteStore = create<RouteStore>((set, get) => ({
         duration: routeDuration,
         date: routeDate,
         videoUrl,
+        city: routeCity,
       });
     }
 

@@ -34,7 +34,7 @@ export default function TransparentModal({ isOpen, onClose, data, url }: any) {
   }, [isOpen, data.route.fullname]);
   if (!isOpen) return null;
   return (
-    <Card className="absolute right-4 top-4 flex h-[90%] w-[80%] items-center justify-center md:w-[60%] xl:w-[40%]">
+    <Card className="absolute right-4 top-4 flex h-[90%] w-[80%] items-center justify-center md:h-[60%] md:w-[70%] xl:w-[40%]">
       <CardHeader className="flex justify-end pb-0">
         <Button radius="full" isIconOnly onClick={onClose}>
           X

@@ -40,7 +40,7 @@ export default function Home() {
       </div>
     );
   return (
-    <div className="xl:px-25 flex h-full min-h-[90vh] flex-col p-4 md:flex-row lg:px-20">
+    <div className="flex h-full min-h-[90vh] flex-col p-4 md:flex-row lg:px-10 xl:px-32">
       {/* Maps container */}
       <div className="order-1 mb-4 h-[60vh] w-full overflow-auto md:order-2 md:h-full md:w-[60%] lg:w-full">
         <Maps location={location} />
@@ -61,7 +61,7 @@ export default function Home() {
           <ScrollShadow
             size={20}
             visibility="bottom"
-            className="flex flex-col gap-4 overflow-y-scroll pr-2 md:h-[55vh]"
+            className="flex w-full flex-col gap-y-4 md:h-[55vh] md:overflow-y-scroll md:pr-2"
           >
             <RouteCard />
             <div className="mb-4 flex items-center justify-center">

@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Card, CardBody } from "@nextui-org/card";
 import { Divider } from "@nextui-org/divider";
 import RouteContent from "./RouteContent";
@@ -31,7 +31,7 @@ export default function RouteCard() {
             style={{ borderColor: route.color }}
           >
             <CardBody>
-              <RouteContent data={route} />
+              <RouteContent data={route} city={route.city} />
             </CardBody>
             {index !== routes.length - 1 && <Divider />}
           </div>
